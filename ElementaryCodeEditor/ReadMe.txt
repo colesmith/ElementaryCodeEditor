@@ -1,37 +1,39 @@
-﻿========================================================================
-    应用程序：ElementaryCodeEditor 项目概述
+========================================================================
+    Ӧ�ó���ElementaryCodeEditor ��Ŀ����
 ========================================================================
 
-应用程序向导已为您创建了此 ElementaryCodeEditor 应用程序。  
+Ӧ�ó�������Ϊ�������˴� ElementaryCodeEditor Ӧ�ó���  
 
-本文件概要介绍组成 ElementaryCodeEditor 应用程序的每个文件的内容。
+���ļ���Ҫ������� ElementaryCodeEditor Ӧ�ó����ÿ���ļ������ݡ�
 
 ElementaryCodeEditor.vcxproj
-    这是使用应用程序向导生成的 VC++ 项目的主项目文件， 
-    其中包含生成该文件的 Visual C++ 
-    的版本信息，以及有关使用应用程序向导选择的平台、配置和项目功能的信息。
+    ����ʹ��Ӧ�ó��������ɵ� VC++ ��Ŀ������Ŀ�ļ��� 
+    ���а������ɸ��ļ��� Visual C++ 
+    �İ汾��Ϣ���Լ��й�ʹ��Ӧ�ó�����ѡ���ƽ̨�����ú���Ŀ���ܵ���Ϣ��
 
 ElementaryCodeEditor.vcxproj.filters
-    这是使用“应用程序向导”生成的 VC++ 项目筛选器文件。 
-    它包含有关项目文件与筛选器之间的关联信息。 在 IDE 
-    中，通过这种关联，在特定节点下以分组形式显示具有相似扩展名的文件。
-    例如，“.cpp”文件与“源文件”筛选器关联。
+    ����ʹ�á�Ӧ�ó����򵼡����ɵ� VC++ ��Ŀɸѡ���ļ��� 
+    �������й���Ŀ�ļ���ɸѡ��֮��Ĺ�����Ϣ�� �� IDE 
+    �У�ͨ�����ֹ��������ض��ڵ����Է�����ʽ��ʾ����������չ�����ļ���
+    ���磬��.cpp���ļ��롰Դ�ļ���ɸѡ��������
 
 ElementaryCodeEditor.cpp
-    这是主应用程序源文件。
-    包含用于显示窗体的代码。
+    ������Ӧ�ó���Դ�ļ���
+    ����������ʾ����Ĵ��롣
 
 Form1.h
-    包含窗体类和 InitializeComponent() 函数的实现。
+    ����������� InitializeComponent() ������ʵ�֡�
+
 
 AssemblyInfo.cpp
-    包含用于修改程序集元数据的自定义特性。
+    ���������޸ĳ���Ԫ���ݵ��Զ������ԡ�
 
 /////////////////////////////////////////////////////////////////////////////
-其他标准文件：
+������׼�ļ���
 
-StdAfx.h，StdAfx.cpp
-    这些文件用于生成名为 ElementaryCodeEditor.pch 的预编译头 (PCH) 文件和名为 
-    StdAfx.obj 的预编译类型文件。
+StdAfx.h��StdAfx.cpp
+    ��Щ�ļ�����������Ϊ ElementaryCodeEditor.pch ��Ԥ����ͷ (PCH) �ļ�����Ϊ 
+    StdAfx.obj ��Ԥ���������ļ���
 
 /////////////////////////////////////////////////////////////////////////////
+
