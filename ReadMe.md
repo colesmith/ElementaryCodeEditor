@@ -7,6 +7,8 @@
   - 3. add Cut/Copy/Paste/SelectAll Menu
   - 4. add Cancel/Date/Delete Menu
   - 5. + Font Menu
+  - 6. + StatusBar + Timer
+  - 7. fix Bug: fileOpenMenu, and writer->Flush()
 
 - 2015-03-19
   - Initial Project Named: Elementary Code Editor: UI OK

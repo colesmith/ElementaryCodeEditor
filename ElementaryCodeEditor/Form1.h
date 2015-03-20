@@ -36,7 +36,11 @@ namespace ElementaryCodeEditor {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::MenuStrip^  menuStrip1;
+	private: System::Windows::Forms::MenuStrip^  ECEMenus;
+	protected: 
+
+	protected: 
+
 	protected: 
 	private: System::Windows::Forms::ToolStripMenuItem^  文件ToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  fileNewMenu;
@@ -81,18 +85,27 @@ namespace ElementaryCodeEditor {
 	private: System::Windows::Forms::ToolStripMenuItem^  textFontMenu;
 
 	private: System::Windows::Forms::ToolStripMenuItem^  查看VToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  状态栏SToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  statusBarMenu;
+
 	private: System::Windows::Forms::ToolStripMenuItem^  帮助ToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  查看帮助HToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  关于ElementaryCodeEditorToolStripMenuItem;
 	private: System::Windows::Forms::TextBox^  textAreaTb;
+	private: System::Windows::Forms::StatusStrip^  ECEStatusBar;
+	private: System::Windows::Forms::ToolStripStatusLabel^  textLength;
+	private: System::Windows::Forms::ToolStripStatusLabel^  textLines;
+	private: System::Windows::Forms::ToolStripStatusLabel^  textRow;
+	private: System::Windows::Forms::ToolStripStatusLabel^  textColumn;
+	private: System::Windows::Forms::ToolStripStatusLabel^  textCharset;
+	private: System::Windows::Forms::Timer^  ECEStatusBarTimer;
+	private: System::ComponentModel::IContainer^  components;
 
 
 	private:
 		/// <summary>
 		/// 必需的设计器变量。
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -101,7 +114,8 @@ namespace ElementaryCodeEditor {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
+			this->components = (gcnew System::ComponentModel::Container());
+			this->ECEMenus = (gcnew System::Windows::Forms::MenuStrip());
 			this->文件ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->fileNewMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->fileOpenMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -130,23 +144,31 @@ namespace ElementaryCodeEditor {
 			this->自行换行ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->textFontMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->查看VToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->状态栏SToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->statusBarMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->帮助ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->查看帮助HToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->关于ElementaryCodeEditorToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->textAreaTb = (gcnew System::Windows::Forms::TextBox());
-			this->menuStrip1->SuspendLayout();
+			this->ECEStatusBar = (gcnew System::Windows::Forms::StatusStrip());
+			this->textLength = (gcnew System::Windows::Forms::ToolStripStatusLabel());
+			this->textLines = (gcnew System::Windows::Forms::ToolStripStatusLabel());
+			this->textRow = (gcnew System::Windows::Forms::ToolStripStatusLabel());
+			this->textColumn = (gcnew System::Windows::Forms::ToolStripStatusLabel());
+			this->textCharset = (gcnew System::Windows::Forms::ToolStripStatusLabel());
+			this->ECEStatusBarTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->ECEMenus->SuspendLayout();
+			this->ECEStatusBar->SuspendLayout();
 			this->SuspendLayout();
 			// 
-			// menuStrip1
+			// ECEMenus
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {this->文件ToolStripMenuItem, 
+			this->ECEMenus->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {this->文件ToolStripMenuItem, 
 				this->编辑EToolStripMenuItem, this->格式OToolStripMenuItem, this->查看VToolStripMenuItem, this->帮助ToolStripMenuItem});
-			this->menuStrip1->Location = System::Drawing::Point(0, 0);
-			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(441, 24);
-			this->menuStrip1->TabIndex = 0;
-			this->menuStrip1->Text = L"menuStrip1";
+			this->ECEMenus->Location = System::Drawing::Point(0, 0);
+			this->ECEMenus->Name = L"ECEMenus";
+			this->ECEMenus->Size = System::Drawing::Size(441, 24);
+			this->ECEMenus->TabIndex = 0;
+			this->ECEMenus->Text = L"menuStrip1";
 			// 
 			// 文件ToolStripMenuItem
 			// 
@@ -331,28 +353,31 @@ namespace ElementaryCodeEditor {
 			// 自行换行ToolStripMenuItem
 			// 
 			this->自行换行ToolStripMenuItem->Name = L"自行换行ToolStripMenuItem";
-			this->自行换行ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->自行换行ToolStripMenuItem->Size = System::Drawing::Size(122, 22);
 			this->自行换行ToolStripMenuItem->Text = L"自行换行";
 			// 
 			// textFontMenu
 			// 
 			this->textFontMenu->Name = L"textFontMenu";
-			this->textFontMenu->Size = System::Drawing::Size(152, 22);
+			this->textFontMenu->Size = System::Drawing::Size(122, 22);
 			this->textFontMenu->Text = L"字体(F)";
 			this->textFontMenu->Click += gcnew System::EventHandler(this, &Form1::textFontMenu_Click);
 			// 
 			// 查看VToolStripMenuItem
 			// 
-			this->查看VToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->状态栏SToolStripMenuItem});
+			this->查看VToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->statusBarMenu});
 			this->查看VToolStripMenuItem->Name = L"查看VToolStripMenuItem";
 			this->查看VToolStripMenuItem->Size = System::Drawing::Size(59, 20);
 			this->查看VToolStripMenuItem->Text = L"查看(V)";
 			// 
-			// 状态栏SToolStripMenuItem
+			// statusBarMenu
 			// 
-			this->状态栏SToolStripMenuItem->Name = L"状态栏SToolStripMenuItem";
-			this->状态栏SToolStripMenuItem->Size = System::Drawing::Size(125, 22);
-			this->状态栏SToolStripMenuItem->Text = L"状态栏(S)";
+			this->statusBarMenu->Checked = true;
+			this->statusBarMenu->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->statusBarMenu->Name = L"statusBarMenu";
+			this->statusBarMenu->Size = System::Drawing::Size(152, 22);
+			this->statusBarMenu->Text = L"状态栏(S)";
+			this->statusBarMenu->Click += gcnew System::EventHandler(this, &Form1::statusBarMenu_Click);
 			// 
 			// 帮助ToolStripMenuItem
 			// 
@@ -384,19 +409,68 @@ namespace ElementaryCodeEditor {
 			this->textAreaTb->TabIndex = 1;
 			this->textAreaTb->Tag = L"";
 			// 
+			// ECEStatusBar
+			// 
+			this->ECEStatusBar->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {this->textLength, this->textLines, 
+				this->textRow, this->textColumn, this->textCharset});
+			this->ECEStatusBar->Location = System::Drawing::Point(0, 330);
+			this->ECEStatusBar->Name = L"ECEStatusBar";
+			this->ECEStatusBar->Size = System::Drawing::Size(441, 22);
+			this->ECEStatusBar->TabIndex = 2;
+			this->ECEStatusBar->Text = L"statusStrip1";
+			// 
+			// textLength
+			// 
+			this->textLength->Name = L"textLength";
+			this->textLength->Size = System::Drawing::Size(42, 17);
+			this->textLength->Text = L"长度 : ";
+			// 
+			// textLines
+			// 
+			this->textLines->Name = L"textLines";
+			this->textLines->Size = System::Drawing::Size(42, 17);
+			this->textLines->Text = L"行数 : ";
+			// 
+			// textRow
+			// 
+			this->textRow->Name = L"textRow";
+			this->textRow->Size = System::Drawing::Size(30, 17);
+			this->textRow->Text = L"行 : ";
+			// 
+			// textColumn
+			// 
+			this->textColumn->Name = L"textColumn";
+			this->textColumn->Size = System::Drawing::Size(30, 17);
+			this->textColumn->Text = L"列 : ";
+			// 
+			// textCharset
+			// 
+			this->textCharset->Name = L"textCharset";
+			this->textCharset->Size = System::Drawing::Size(42, 17);
+			this->textCharset->Text = L"编码 : ";
+			// 
+			// ECEStatusBarTimer
+			// 
+			this->ECEStatusBarTimer->Enabled = true;
+			this->ECEStatusBarTimer->Interval = 500;
+			this->ECEStatusBarTimer->Tick += gcnew System::EventHandler(this, &Form1::ECEStatusBarTimer_Tick);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(441, 352);
+			this->Controls->Add(this->ECEStatusBar);
 			this->Controls->Add(this->textAreaTb);
-			this->Controls->Add(this->menuStrip1);
-			this->MainMenuStrip = this->menuStrip1;
+			this->Controls->Add(this->ECEMenus);
+			this->MainMenuStrip = this->ECEMenus;
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Elementary Code Editor";
-			this->menuStrip1->ResumeLayout(false);
-			this->menuStrip1->PerformLayout();
+			this->ECEMenus->ResumeLayout(false);
+			this->ECEMenus->PerformLayout();
+			this->ECEStatusBar->ResumeLayout(false);
+			this->ECEStatusBar->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -421,6 +495,20 @@ namespace ElementaryCodeEditor {
 			 }
 
 private: System::Void fileOpenMenu_Click(System::Object^  sender, System::EventArgs^  e) {
+			 // 先检查文本框是否有改动
+			 
+			 if (this->textAreaTb->Modified) {
+				 if (MessageBox::Show(L"文件内容已改动,是否保存?", L"文件改动问题", MessageBoxButtons::OKCancel) ==
+					 System::Windows::Forms::DialogResult::OK) {
+						 this->fileSaveMenu_Click(sender, e);
+				 }
+			 }
+
+			 // 清空文本
+			 this->textAreaTb->Clear();
+			 // 设置Modified为未改动
+			 this->textAreaTb->Modified = false;
+
 			 OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
 			 openFileDialog->Filter = L"文本文档(*.txt)|*.txt|所有文件(*.*)|*.*"; 	// 过滤字符串
 
@@ -458,8 +546,10 @@ private: System::Void fileSaveMenu_Click(System::Object^  sender, System::EventA
 			 FileStream^ stream = fileInfo->Open(FileMode::Truncate, FileAccess::Write);
 			 StreamWriter^ writer = gcnew StreamWriter(stream, Encoding::Default);
 
-			 for each (String^ lineText in this->textAreaTb->Lines)
+			 for each (String^ lineText in this->textAreaTb->Lines) {
 				 writer->WriteLine(lineText);
+				 writer->Flush();
+			 }
 
 			 writer->Close();
 			 stream->Close();
@@ -537,6 +627,33 @@ private: System::Void textFontMenu_Click(System::Object^  sender, System::EventA
 			 if (fontDialog->ShowDialog() != System::Windows::Forms::DialogResult::OK)
 				 return ;
 			 this->textAreaTb->Font = fontDialog->Font;
+		 }
+private: System::Void statusBarMenu_Click(System::Object^  sender, System::EventArgs^  e) {
+			 if (! this->statusBarMenu->Checked) {
+				// 未打开状态栏:
+				 // 1. 关闭 状态栏
+				 this->ECEStatusBar->Visible = false;
+				 // 2. 关闭 Timer
+				 this->ECEStatusBarTimer->Enabled = false;
+				 return ;
+			 }
+
+			 // 1. 打开状态栏
+			 this->ECEStatusBar->Visible = true;
+			 // 2. 打开计时器
+			 this->ECEStatusBarTimer->Enabled = true;
+		 }
+private: System::Void ECEStatusBarTimer_Tick(System::Object^  sender, System::EventArgs^  e) {
+			 int totalLine = textAreaTb->GetLineFromCharIndex(
+					textAreaTb->Text->Length); // 总行数
+			 int index = textAreaTb->GetFirstCharIndexOfCurrentLine(); // 每行第一个字符索引
+			 int line = textAreaTb->GetLineFromCharIndex(index) + 1; // 行号
+			 int column = textAreaTb->SelectionStart - index + 1; // 列号
+
+			 this->textLength->Text = L"长度 : " + this->textAreaTb->Text->Length.ToString();
+			 this->textLines->Text = L"行数 : " + totalLine.ToString();
+			 this->textRow->Text = L"行 : " + line.ToString();
+			 this->textColumn->Text = L"列 : " + column.ToString();
 		 }
 };
 }
