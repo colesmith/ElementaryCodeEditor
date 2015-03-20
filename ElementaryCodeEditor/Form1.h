@@ -52,7 +52,8 @@ namespace ElementaryCodeEditor {
 	private: System::Windows::Forms::ToolStripMenuItem^  页面设置UToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  打印PToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator2;
-	private: System::Windows::Forms::ToolStripMenuItem^  退出XToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  exitMenu;
+
 	private: System::Windows::Forms::ToolStripMenuItem^  编辑EToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  撤销UToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  剪切TToolStripMenuItem;
@@ -101,7 +102,7 @@ namespace ElementaryCodeEditor {
 			this->页面设置UToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->打印PToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripSeparator2 = (gcnew System::Windows::Forms::ToolStripSeparator());
-			this->退出XToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->exitMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->编辑EToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->撤销UToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->剪切TToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -142,7 +143,7 @@ namespace ElementaryCodeEditor {
 			// 
 			this->文件ToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(9) {this->fileNewMenu, 
 				this->fileOpenMenu, this->fileSaveMenu, this->fileSaveAsMenu, this->toolStripSeparator1, this->页面设置UToolStripMenuItem, this->打印PToolStripMenuItem, 
-				this->toolStripSeparator2, this->退出XToolStripMenuItem});
+				this->toolStripSeparator2, this->exitMenu});
 			this->文件ToolStripMenuItem->Name = L"文件ToolStripMenuItem";
 			this->文件ToolStripMenuItem->Size = System::Drawing::Size(57, 20);
 			this->文件ToolStripMenuItem->Text = L"文件(F)";
@@ -201,11 +202,12 @@ namespace ElementaryCodeEditor {
 			this->toolStripSeparator2->Name = L"toolStripSeparator2";
 			this->toolStripSeparator2->Size = System::Drawing::Size(183, 6);
 			// 
-			// 退出XToolStripMenuItem
+			// exitMenu
 			// 
-			this->退出XToolStripMenuItem->Name = L"退出XToolStripMenuItem";
-			this->退出XToolStripMenuItem->Size = System::Drawing::Size(186, 22);
-			this->退出XToolStripMenuItem->Text = L"退出(X)";
+			this->exitMenu->Name = L"exitMenu";
+			this->exitMenu->Size = System::Drawing::Size(186, 22);
+			this->exitMenu->Text = L"退出(X)";
+			this->exitMenu->Click += gcnew System::EventHandler(this, &Form1::exitMenu_Click);
 			// 
 			// 编辑EToolStripMenuItem
 			// 
@@ -419,7 +421,7 @@ private: System::Void fileSaveMenu_Click(System::Object^  sender, System::EventA
 			 // 标志: this->textAreaTb->Tag == nullptr
 
 			 // 文件不存在
-			 if (this->textAreaTb->Tag == nullptr) {
+			 if (this->textAreaTb->Tag == nullptr || this->textAreaTb->Tag->ToString() == L"") {
 				 this->fileSaveAsMenu_Click(sender, e);
 				 return ;
 			 }
@@ -465,6 +467,18 @@ private: System::Void fileSaveAsMenu_Click(System::Object^  sender, System::Even
 
 			 // 设置当前文件名
 			 this->textAreaTb->Tag = saveFileDialog->FileName;
+		 }
+private: System::Void exitMenu_Click(System::Object^  sender, System::EventArgs^  e) {
+			 if (this->textAreaTb->Modified)
+			 {
+				 if (MessageBox::Show(L"内容变动，是否保存？", L"退出提示", MessageBoxButtons::OKCancel) == 
+					 System::Windows::Forms::DialogResult::OK) {
+					 this->fileSaveMenu_Click(sender, e);
+				 }
+			 }
+
+			 // 退出
+			 Application::Exit();
 		 }
 };
 }
