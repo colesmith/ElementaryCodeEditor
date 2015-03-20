@@ -9,6 +9,7 @@
   - 5. + Font Menu
   - 6. + StatusBar + Timer
   - 7. fix Bug: fileOpenMenu, and writer->Flush()
+  - 8. searchWord @TODO , searchPostion should start from textBox->SelectionStart
 
 - 2015-03-19
   - Initial Project Named: Elementary Code Editor: UI OK

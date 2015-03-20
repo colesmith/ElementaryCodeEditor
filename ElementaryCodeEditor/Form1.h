@@ -1,4 +1,5 @@
 #pragma once
+#include "SearchBoxDialog.h"
 
 namespace ElementaryCodeEditor {
 
@@ -354,14 +355,14 @@ namespace ElementaryCodeEditor {
 			// autoNewLineMenu
 			// 
 			this->autoNewLineMenu->Name = L"autoNewLineMenu";
-			this->autoNewLineMenu->Size = System::Drawing::Size(152, 22);
+			this->autoNewLineMenu->Size = System::Drawing::Size(142, 22);
 			this->autoNewLineMenu->Text = L"自行换行(W)";
 			this->autoNewLineMenu->Click += gcnew System::EventHandler(this, &Form1::autoNewLineMenu_Click);
 			// 
 			// textFontMenu
 			// 
 			this->textFontMenu->Name = L"textFontMenu";
-			this->textFontMenu->Size = System::Drawing::Size(152, 22);
+			this->textFontMenu->Size = System::Drawing::Size(142, 22);
 			this->textFontMenu->Text = L"字体(F)";
 			this->textFontMenu->Click += gcnew System::EventHandler(this, &Form1::textFontMenu_Click);
 			// 
@@ -377,7 +378,7 @@ namespace ElementaryCodeEditor {
 			this->statusBarMenu->Checked = true;
 			this->statusBarMenu->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->statusBarMenu->Name = L"statusBarMenu";
-			this->statusBarMenu->Size = System::Drawing::Size(152, 22);
+			this->statusBarMenu->Size = System::Drawing::Size(125, 22);
 			this->statusBarMenu->Text = L"状态栏(S)";
 			this->statusBarMenu->Click += gcnew System::EventHandler(this, &Form1::statusBarMenu_Click);
 			// 
@@ -465,6 +466,7 @@ namespace ElementaryCodeEditor {
 			this->Controls->Add(this->ECEStatusBar);
 			this->Controls->Add(this->textAreaTb);
 			this->Controls->Add(this->ECEMenus);
+			this->IsMdiContainer = true;
 			this->MainMenuStrip = this->ECEMenus;
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
@@ -622,7 +624,20 @@ private: System::Void textDeleteMenu_Click(System::Object^  sender, System::Even
 			 this->textAreaTb->SelectedText = L"";
 		 }
 private: System::Void textSearchMenu_Click(System::Object^  sender, System::EventArgs^  e) {
+			 SearchBoxDialog^ searchBoxDialog = gcnew SearchBoxDialog();
+
+			 // 设置parentForm
+			 // searchBoxDialog->ParentForm = this;
+			 // searchBoxDialog->MdiParent = this;
+			 // MessageBox::Show(searchBoxDialog->ParentForm->ToString());
 			 
+			 // 悬浮于当前窗体
+			 searchBoxDialog->Owner = this;
+
+			 // 传值（从主窗口传到 SearchBox 窗口
+			 searchBoxDialog->SetParentTextBox(this->textAreaTb);
+
+			 searchBoxDialog->Show();
 		 }
 private: System::Void textFontMenu_Click(System::Object^  sender, System::EventArgs^  e) {
 			 FontDialog^ fontDialog = gcnew FontDialog();
