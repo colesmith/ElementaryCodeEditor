@@ -59,11 +59,12 @@ namespace ElementaryCodeEditor {
 	private: System::Windows::Forms::ToolStripMenuItem^  textCutMenu;
 	private: System::Windows::Forms::ToolStripMenuItem^  textCopyMenu;
 	private: System::Windows::Forms::ToolStripMenuItem^  textPaste;
+	private: System::Windows::Forms::ToolStripMenuItem^  textDeleteMenu;
 
 
 
 
-	private: System::Windows::Forms::ToolStripMenuItem^  删除LToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator3;
 	private: System::Windows::Forms::ToolStripMenuItem^  查找FToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  查找下一个NToolStripMenuItem;
@@ -71,8 +72,9 @@ namespace ElementaryCodeEditor {
 	private: System::Windows::Forms::ToolStripMenuItem^  转到GToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator4;
 	private: System::Windows::Forms::ToolStripMenuItem^  textSelectAllMenu;
+	private: System::Windows::Forms::ToolStripMenuItem^  textDateMenu;
 
-	private: System::Windows::Forms::ToolStripMenuItem^  时间日期DToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStripMenuItem^  格式OToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  自行换行ToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  字体FToolStripMenuItem;
@@ -113,7 +115,7 @@ namespace ElementaryCodeEditor {
 			this->textCutMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->textCopyMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->textPaste = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->删除LToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->textDeleteMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripSeparator3 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->查找FToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->查找下一个NToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -121,7 +123,7 @@ namespace ElementaryCodeEditor {
 			this->转到GToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripSeparator4 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->textSelectAllMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->时间日期DToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->textDateMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->格式OToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->自行换行ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->字体FToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -217,9 +219,9 @@ namespace ElementaryCodeEditor {
 			// 编辑EToolStripMenuItem
 			// 
 			this->编辑EToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(13) {this->textCancelMenu, 
-				this->textCutMenu, this->textCopyMenu, this->textPaste, this->删除LToolStripMenuItem, this->toolStripSeparator3, this->查找FToolStripMenuItem, 
+				this->textCutMenu, this->textCopyMenu, this->textPaste, this->textDeleteMenu, this->toolStripSeparator3, this->查找FToolStripMenuItem, 
 				this->查找下一个NToolStripMenuItem, this->替换ToolStripMenuItem, this->转到GToolStripMenuItem, this->toolStripSeparator4, this->textSelectAllMenu, 
-				this->时间日期DToolStripMenuItem});
+				this->textDateMenu});
 			this->编辑EToolStripMenuItem->Name = L"编辑EToolStripMenuItem";
 			this->编辑EToolStripMenuItem->Size = System::Drawing::Size(58, 20);
 			this->编辑EToolStripMenuItem->Text = L"编辑(E)";
@@ -228,7 +230,7 @@ namespace ElementaryCodeEditor {
 			// 
 			this->textCancelMenu->Name = L"textCancelMenu";
 			this->textCancelMenu->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::Z));
-			this->textCancelMenu->Size = System::Drawing::Size(158, 22);
+			this->textCancelMenu->Size = System::Drawing::Size(164, 22);
 			this->textCancelMenu->Text = L"撤销(U)";
 			this->textCancelMenu->Click += gcnew System::EventHandler(this, &Form1::textCancelMenu_Click);
 			// 
@@ -236,7 +238,7 @@ namespace ElementaryCodeEditor {
 			// 
 			this->textCutMenu->Name = L"textCutMenu";
 			this->textCutMenu->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::X));
-			this->textCutMenu->Size = System::Drawing::Size(158, 22);
+			this->textCutMenu->Size = System::Drawing::Size(164, 22);
 			this->textCutMenu->Text = L"剪切(T)";
 			this->textCutMenu->Click += gcnew System::EventHandler(this, &Form1::textCutMenu_Click);
 			// 
@@ -244,7 +246,7 @@ namespace ElementaryCodeEditor {
 			// 
 			this->textCopyMenu->Name = L"textCopyMenu";
 			this->textCopyMenu->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::C));
-			this->textCopyMenu->Size = System::Drawing::Size(158, 22);
+			this->textCopyMenu->Size = System::Drawing::Size(164, 22);
 			this->textCopyMenu->Text = L"复制(C)";
 			this->textCopyMenu->Click += gcnew System::EventHandler(this, &Form1::textCopyMenu_Click);
 			// 
@@ -252,63 +254,67 @@ namespace ElementaryCodeEditor {
 			// 
 			this->textPaste->Name = L"textPaste";
 			this->textPaste->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::V));
-			this->textPaste->Size = System::Drawing::Size(158, 22);
+			this->textPaste->Size = System::Drawing::Size(164, 22);
 			this->textPaste->Text = L"粘贴(P)";
 			this->textPaste->Click += gcnew System::EventHandler(this, &Form1::textPaste_Click);
 			// 
-			// 删除LToolStripMenuItem
+			// textDeleteMenu
 			// 
-			this->删除LToolStripMenuItem->Name = L"删除LToolStripMenuItem";
-			this->删除LToolStripMenuItem->Size = System::Drawing::Size(158, 22);
-			this->删除LToolStripMenuItem->Text = L"删除(L)";
+			this->textDeleteMenu->Name = L"textDeleteMenu";
+			this->textDeleteMenu->ShortcutKeys = System::Windows::Forms::Keys::Delete;
+			this->textDeleteMenu->Size = System::Drawing::Size(164, 22);
+			this->textDeleteMenu->Text = L"删除(L)";
+			this->textDeleteMenu->Click += gcnew System::EventHandler(this, &Form1::textDeleteMenu_Click);
 			// 
 			// toolStripSeparator3
 			// 
 			this->toolStripSeparator3->Name = L"toolStripSeparator3";
-			this->toolStripSeparator3->Size = System::Drawing::Size(155, 6);
+			this->toolStripSeparator3->Size = System::Drawing::Size(161, 6);
 			// 
 			// 查找FToolStripMenuItem
 			// 
 			this->查找FToolStripMenuItem->Name = L"查找FToolStripMenuItem";
-			this->查找FToolStripMenuItem->Size = System::Drawing::Size(158, 22);
+			this->查找FToolStripMenuItem->Size = System::Drawing::Size(164, 22);
 			this->查找FToolStripMenuItem->Text = L"查找(F)";
 			// 
 			// 查找下一个NToolStripMenuItem
 			// 
 			this->查找下一个NToolStripMenuItem->Name = L"查找下一个NToolStripMenuItem";
-			this->查找下一个NToolStripMenuItem->Size = System::Drawing::Size(158, 22);
+			this->查找下一个NToolStripMenuItem->Size = System::Drawing::Size(164, 22);
 			this->查找下一个NToolStripMenuItem->Text = L"查找下一个(N)";
 			// 
 			// 替换ToolStripMenuItem
 			// 
 			this->替换ToolStripMenuItem->Name = L"替换ToolStripMenuItem";
-			this->替换ToolStripMenuItem->Size = System::Drawing::Size(158, 22);
+			this->替换ToolStripMenuItem->Size = System::Drawing::Size(164, 22);
 			this->替换ToolStripMenuItem->Text = L"替换(R)";
 			// 
 			// 转到GToolStripMenuItem
 			// 
 			this->转到GToolStripMenuItem->Name = L"转到GToolStripMenuItem";
-			this->转到GToolStripMenuItem->Size = System::Drawing::Size(158, 22);
+			this->转到GToolStripMenuItem->Size = System::Drawing::Size(164, 22);
 			this->转到GToolStripMenuItem->Text = L"转到(G)";
 			// 
 			// toolStripSeparator4
 			// 
 			this->toolStripSeparator4->Name = L"toolStripSeparator4";
-			this->toolStripSeparator4->Size = System::Drawing::Size(155, 6);
+			this->toolStripSeparator4->Size = System::Drawing::Size(161, 6);
 			// 
 			// textSelectAllMenu
 			// 
 			this->textSelectAllMenu->Name = L"textSelectAllMenu";
 			this->textSelectAllMenu->ShortcutKeys = static_cast<System::Windows::Forms::Keys>((System::Windows::Forms::Keys::Control | System::Windows::Forms::Keys::A));
-			this->textSelectAllMenu->Size = System::Drawing::Size(158, 22);
+			this->textSelectAllMenu->Size = System::Drawing::Size(164, 22);
 			this->textSelectAllMenu->Text = L"全选(A)";
 			this->textSelectAllMenu->Click += gcnew System::EventHandler(this, &Form1::textSelectAllMenu_Click);
 			// 
-			// 时间日期DToolStripMenuItem
+			// textDateMenu
 			// 
-			this->时间日期DToolStripMenuItem->Name = L"时间日期DToolStripMenuItem";
-			this->时间日期DToolStripMenuItem->Size = System::Drawing::Size(158, 22);
-			this->时间日期DToolStripMenuItem->Text = L"时间/日期(D)";
+			this->textDateMenu->Name = L"textDateMenu";
+			this->textDateMenu->ShortcutKeys = System::Windows::Forms::Keys::F5;
+			this->textDateMenu->Size = System::Drawing::Size(164, 22);
+			this->textDateMenu->Text = L"时间/日期(D)";
+			this->textDateMenu->Click += gcnew System::EventHandler(this, &Form1::textDateMenu_Click);
 			// 
 			// 格式OToolStripMenuItem
 			// 
@@ -321,13 +327,13 @@ namespace ElementaryCodeEditor {
 			// 自行换行ToolStripMenuItem
 			// 
 			this->自行换行ToolStripMenuItem->Name = L"自行换行ToolStripMenuItem";
-			this->自行换行ToolStripMenuItem->Size = System::Drawing::Size(122, 22);
+			this->自行换行ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->自行换行ToolStripMenuItem->Text = L"自行换行";
 			// 
 			// 字体FToolStripMenuItem
 			// 
 			this->字体FToolStripMenuItem->Name = L"字体FToolStripMenuItem";
-			this->字体FToolStripMenuItem->Size = System::Drawing::Size(122, 22);
+			this->字体FToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->字体FToolStripMenuItem->Text = L"字体(F)";
 			// 
 			// 查看VToolStripMenuItem
@@ -496,7 +502,7 @@ private: System::Void exitMenu_Click(System::Object^  sender, System::EventArgs^
 			 Application::Exit();
 		 }
 private: System::Void textCancelMenu_Click(System::Object^  sender, System::EventArgs^  e) {
-			 // this->textAreaTb->
+			 this->textAreaTb->Undo();
 		 }
 private: System::Void textCutMenu_Click(System::Object^  sender, System::EventArgs^  e) {
 			 this->textAreaTb->Cut();
@@ -509,6 +515,13 @@ private: System::Void textPaste_Click(System::Object^  sender, System::EventArgs
 		 }
 private: System::Void textSelectAllMenu_Click(System::Object^  sender, System::EventArgs^  e) {
 			 this->textAreaTb->SelectAll();
+		 }
+private: System::Void textDateMenu_Click(System::Object^  sender, System::EventArgs^  e) {
+			 this->textAreaTb->Text += (DateTime::Now.ToLocalTime() + L"\r\n");
+		 }
+private: System::Void textDeleteMenu_Click(System::Object^  sender, System::EventArgs^  e) {
+			 // @TODO only delete selectedText
+			 this->textAreaTb->SelectedText = L"";
 		 }
 };
 }
