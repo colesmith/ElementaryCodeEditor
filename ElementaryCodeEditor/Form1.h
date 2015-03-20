@@ -81,7 +81,8 @@ namespace ElementaryCodeEditor {
 
 
 	private: System::Windows::Forms::ToolStripMenuItem^  格式OToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  自行换行ToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  autoNewLineMenu;
+
 	private: System::Windows::Forms::ToolStripMenuItem^  textFontMenu;
 
 	private: System::Windows::Forms::ToolStripMenuItem^  查看VToolStripMenuItem;
@@ -141,7 +142,7 @@ namespace ElementaryCodeEditor {
 			this->textSelectAllMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->textDateMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->格式OToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->自行换行ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->autoNewLineMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->textFontMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->查看VToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->statusBarMenu = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -344,22 +345,23 @@ namespace ElementaryCodeEditor {
 			// 
 			// 格式OToolStripMenuItem
 			// 
-			this->格式OToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->自行换行ToolStripMenuItem, 
+			this->格式OToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->autoNewLineMenu, 
 				this->textFontMenu});
 			this->格式OToolStripMenuItem->Name = L"格式OToolStripMenuItem";
 			this->格式OToolStripMenuItem->Size = System::Drawing::Size(61, 20);
 			this->格式OToolStripMenuItem->Text = L"格式(O)";
 			// 
-			// 自行换行ToolStripMenuItem
+			// autoNewLineMenu
 			// 
-			this->自行换行ToolStripMenuItem->Name = L"自行换行ToolStripMenuItem";
-			this->自行换行ToolStripMenuItem->Size = System::Drawing::Size(122, 22);
-			this->自行换行ToolStripMenuItem->Text = L"自行换行";
+			this->autoNewLineMenu->Name = L"autoNewLineMenu";
+			this->autoNewLineMenu->Size = System::Drawing::Size(152, 22);
+			this->autoNewLineMenu->Text = L"自行换行(W)";
+			this->autoNewLineMenu->Click += gcnew System::EventHandler(this, &Form1::autoNewLineMenu_Click);
 			// 
 			// textFontMenu
 			// 
 			this->textFontMenu->Name = L"textFontMenu";
-			this->textFontMenu->Size = System::Drawing::Size(122, 22);
+			this->textFontMenu->Size = System::Drawing::Size(152, 22);
 			this->textFontMenu->Text = L"字体(F)";
 			this->textFontMenu->Click += gcnew System::EventHandler(this, &Form1::textFontMenu_Click);
 			// 
@@ -548,6 +550,7 @@ private: System::Void fileSaveMenu_Click(System::Object^  sender, System::EventA
 
 			 for each (String^ lineText in this->textAreaTb->Lines) {
 				 writer->WriteLine(lineText);
+				 // 刷新缓冲
 				 writer->Flush();
 			 }
 
@@ -629,6 +632,8 @@ private: System::Void textFontMenu_Click(System::Object^  sender, System::EventA
 			 this->textAreaTb->Font = fontDialog->Font;
 		 }
 private: System::Void statusBarMenu_Click(System::Object^  sender, System::EventArgs^  e) {
+			 this->statusBarMenu->Checked = ! this->statusBarMenu->Checked;
+
 			 if (! this->statusBarMenu->Checked) {
 				// 未打开状态栏:
 				 // 1. 关闭 状态栏
@@ -654,6 +659,21 @@ private: System::Void ECEStatusBarTimer_Tick(System::Object^  sender, System::Ev
 			 this->textLines->Text = L"行数 : " + totalLine.ToString();
 			 this->textRow->Text = L"行 : " + line.ToString();
 			 this->textColumn->Text = L"列 : " + column.ToString();
+
+			 // 编码 @TODO
+			 // this->textCharset->Text = L"编码 : " + this->textAreaTb->
+
+			 // 自动换行@TODO
+			 if (autoNewLineMenu->Enabled) {
+				 // MessageBox::Show(this->textAreaTb->Width.ToString());
+				 if (column >= textAreaTb->Width)
+					 textAreaTb->Text += "\r\n";
+			 }
+
+			 
+		 }
+private: System::Void autoNewLineMenu_Click(System::Object^  sender, System::EventArgs^  e) {
+			 autoNewLineMenu->Enabled = ! autoNewLineMenu->Enabled;
 		 }
 };
 }
