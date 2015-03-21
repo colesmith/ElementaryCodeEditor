@@ -208,8 +208,10 @@ namespace ElementaryCodeEditor {
 			//  2 replace
 
 			// 1. 检查搜索/替换关键字是否为空
-			if (this->replaceBoxSearchWordTb->Text == String::Empty)
+			if (this->replaceBoxSearchWordTb->Text == String::Empty) {
+				this->position = -1;
 				return -2;
+			}
 
 			/*
 			if (type==2 && this->replaceBoxReplaceWordTb->Text == String::Empty) {
@@ -218,12 +220,16 @@ namespace ElementaryCodeEditor {
 			}*/
 
 			// 2. 检查文本是否为空
-			if (this->parentRichTextAreaTbR->Text == String::Empty)
+			if (this->parentRichTextAreaTbR->Text == String::Empty) {
+				this->position = -1;
 				return -2;
+			}
 
 			// 3. 检查文本是否包含关键字
-			if (! this->parentRichTextAreaTbR->Text->Contains(this->replaceBoxSearchWordTb->Text))
+			if (! this->parentRichTextAreaTbR->Text->Contains(this->replaceBoxSearchWordTb->Text)) {
+				this->position = -1;
 				return -2;
+			}
 
 			//
 			String^ fullText = this->parentRichTextAreaTbR->Text;
@@ -239,7 +245,7 @@ namespace ElementaryCodeEditor {
 				 // 封装好了
 				 this->indexKeyword(1);
 
-				 if (this->position == -1) {
+				 if (this->position <= -1) {
 					 MessageBox::Show(L"已经查找到最后一个!");
 					 return ;
 				 }
@@ -257,7 +263,7 @@ private: System::Void replaceBoxReplaceBtn_Click(System::Object^  sender, System
 			 // 封装好了
 			 this->indexKeyword(2);
 
-			 if (this->position == -1) {
+			 if (this->position <= -1) {
 				 MessageBox::Show(L"已经查找到最后一个!");
 				 return ;
 			 }

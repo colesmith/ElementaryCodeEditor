@@ -5,6 +5,7 @@
 - 2015-03-21
   - 1. fix bug: text ScrollBars attribute sets Both if you want TextBox can be scrolled
   - 2. ReplaceBox May be ok.
+  - 3. Fix bug: replace one word error, but @TODO
 
 - 2015-03-20
   - 1. add exitMenu
