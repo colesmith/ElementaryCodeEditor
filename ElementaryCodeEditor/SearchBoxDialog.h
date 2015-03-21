@@ -49,10 +49,10 @@ namespace ElementaryCodeEditor {
 			this->parentForm = parentForm;
 		}
 	*/
-	private: TextBox^ parentTextAreaTb;
+	private: RichTextBox^ parentTextAreaTb;
 	public:
-		void SetParentTextBox(TextBox^ tb) {
-			this->parentTextAreaTb = tb;
+		void SetParentRichTextBox(RichTextBox^ rtb) {
+			this->parentTextAreaTb = rtb;
 		}
 	
 

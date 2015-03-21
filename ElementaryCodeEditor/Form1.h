@@ -95,7 +95,7 @@ namespace ElementaryCodeEditor {
 	private: System::Windows::Forms::ToolStripMenuItem^  帮助ToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  查看帮助HToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  关于ElementaryCodeEditorToolStripMenuItem;
-	private: System::Windows::Forms::TextBox^  textAreaTb;
+	private: System::Windows::Forms::RichTextBox^  textAreaRTb;
 	private: System::Windows::Forms::StatusStrip^  ECEStatusBar;
 	private: System::Windows::Forms::ToolStripStatusLabel^  textLength;
 	private: System::Windows::Forms::ToolStripStatusLabel^  textLines;
@@ -153,7 +153,7 @@ namespace ElementaryCodeEditor {
 			this->帮助ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->查看帮助HToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->关于ElementaryCodeEditorToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->textAreaTb = (gcnew System::Windows::Forms::TextBox());
+			this->textAreaRTb = (gcnew System::Windows::Forms::RichTextBox());
 			this->ECEStatusBar = (gcnew System::Windows::Forms::StatusStrip());
 			this->textLength = (gcnew System::Windows::Forms::ToolStripStatusLabel());
 			this->textLines = (gcnew System::Windows::Forms::ToolStripStatusLabel());
@@ -408,18 +408,16 @@ namespace ElementaryCodeEditor {
 			this->关于ElementaryCodeEditorToolStripMenuItem->Size = System::Drawing::Size(240, 22);
 			this->关于ElementaryCodeEditorToolStripMenuItem->Text = L"关于 Elementary Code Editor";
 			// 
-			// textAreaTb
+			// textAreaRTb
 			// 
-			this->textAreaTb->AcceptsReturn = true;
-			this->textAreaTb->AcceptsTab = true;
-			this->textAreaTb->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->textAreaTb->Location = System::Drawing::Point(0, 24);
-			this->textAreaTb->Multiline = true;
-			this->textAreaTb->Name = L"textAreaTb";
-			this->textAreaTb->ScrollBars = System::Windows::Forms::ScrollBars::Both;
-			this->textAreaTb->Size = System::Drawing::Size(441, 328);
-			this->textAreaTb->TabIndex = 1;
-			this->textAreaTb->Tag = L"";
+			this->textAreaRTb->AcceptsTab = true;
+			this->textAreaRTb->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->textAreaRTb->Location = System::Drawing::Point(0, 24);
+			this->textAreaRTb->Multiline = true;
+			this->textAreaRTb->Name = L"textAreaRTb";
+			this->textAreaRTb->Size = System::Drawing::Size(441, 328);
+			this->textAreaRTb->TabIndex = 1;
+			this->textAreaRTb->Tag = L"";
 			// 
 			// ECEStatusBar
 			// 
@@ -473,7 +471,7 @@ namespace ElementaryCodeEditor {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(441, 352);
 			this->Controls->Add(this->ECEStatusBar);
-			this->Controls->Add(this->textAreaTb);
+			this->Controls->Add(this->textAreaRTb);
 			this->Controls->Add(this->ECEMenus);
 			this->IsMdiContainer = true;
 			this->MainMenuStrip = this->ECEMenus;
@@ -491,7 +489,7 @@ namespace ElementaryCodeEditor {
 #pragma endregion
 	private: System::Void fileNewMenu_Click(System::Object^  sender, System::EventArgs^  e) {
 				 // 先检查文本框是否有改动
-				 if (this->textAreaTb->Modified) {
+				 if (this->textAreaRTb->Modified) {
 					if (MessageBox::Show(L"文件内容已改动,是否保存?", L"文件改动问题", MessageBoxButtons::OKCancel) ==
 						System::Windows::Forms::DialogResult::OK) {
 						this->fileSaveMenu_Click(sender, e);
@@ -500,17 +498,17 @@ namespace ElementaryCodeEditor {
 
 				 // 新建窗口
 				 // 修改变为false
-				 this->textAreaTb->Modified = false;
+				 this->textAreaRTb->Modified = false;
 				 // 初始化 文件名， 存在 tag中
-				 this->textAreaTb->Tag = nullptr;
+				 this->textAreaRTb->Tag = nullptr;
 				 // 清空文本
-				 this->textAreaTb->Clear();
+				 this->textAreaRTb->Clear();
 			 }
 
 private: System::Void fileOpenMenu_Click(System::Object^  sender, System::EventArgs^  e) {
 			 // 先检查文本框是否有改动
 			 
-			 if (this->textAreaTb->Modified) {
+			 if (this->textAreaRTb->Modified) {
 				 if (MessageBox::Show(L"文件内容已改动,是否保存?", L"文件改动问题", MessageBoxButtons::OKCancel) ==
 					 System::Windows::Forms::DialogResult::OK) {
 						 this->fileSaveMenu_Click(sender, e);
@@ -518,9 +516,9 @@ private: System::Void fileOpenMenu_Click(System::Object^  sender, System::EventA
 			 }
 
 			 // 清空文本
-			 this->textAreaTb->Clear();
+			 this->textAreaRTb->Clear();
 			 // 设置Modified为未改动
-			 this->textAreaTb->Modified = false;
+			 this->textAreaRTb->Modified = false;
 
 			 OpenFileDialog^ openFileDialog = gcnew OpenFileDialog();
 			 openFileDialog->Filter = L"文本文档(*.txt)|*.txt|所有文件(*.*)|*.*"; 	// 过滤字符串
@@ -529,15 +527,15 @@ private: System::Void fileOpenMenu_Click(System::Object^  sender, System::EventA
 				 System::Windows::Forms::DialogResult::OK)
 				 return ;
 			 // 设置文件名
-			 this->textAreaTb->Tag = openFileDialog->FileName;
+			 this->textAreaRTb->Tag = openFileDialog->FileName;
 			 // 读取文本
-			 FileInfo^ fileInfo = gcnew FileInfo(this->textAreaTb->Tag->ToString());
+			 FileInfo^ fileInfo = gcnew FileInfo(this->textAreaRTb->Tag->ToString());
 			 FileStream^ stream = fileInfo->Open(FileMode::Open, FileAccess::Read);
 			 StreamReader^ reader = gcnew StreamReader(stream, Encoding::Default);
 
 			 String^ lineText = "";
 			 while ((lineText = reader->ReadLine()) != nullptr) {
-				 this->textAreaTb->Text += (lineText+"\r\n");
+				 this->textAreaRTb->Text += (lineText+"\r\n");
 			 }
 
 			 reader->Close();
@@ -545,21 +543,21 @@ private: System::Void fileOpenMenu_Click(System::Object^  sender, System::EventA
 		 }
 private: System::Void fileSaveMenu_Click(System::Object^  sender, System::EventArgs^  e) {
 			 // 检查是否是新建文件还是已存在的文件
-			 // 标志: this->textAreaTb->Tag == nullptr
+			 // 标志: this->textAreaRTb->Tag == nullptr
 
 			 // 文件不存在
-			 if (this->textAreaTb->Tag == nullptr || this->textAreaTb->Tag->ToString() == L"") {
+			 if (this->textAreaRTb->Tag == nullptr || this->textAreaRTb->Tag->ToString() == L"") {
 				 this->fileSaveAsMenu_Click(sender, e);
 				 return ;
 			 }
 			 
 			 // 文件已存在
-			 FileInfo^ fileInfo = gcnew FileInfo(this->textAreaTb->Tag->ToString());
+			 FileInfo^ fileInfo = gcnew FileInfo(this->textAreaRTb->Tag->ToString());
 			 // FileMode::Truncate 全部重写 @TODO
 			 FileStream^ stream = fileInfo->Open(FileMode::Truncate, FileAccess::Write);
 			 StreamWriter^ writer = gcnew StreamWriter(stream, Encoding::Default);
 
-			 for each (String^ lineText in this->textAreaTb->Lines) {
+			 for each (String^ lineText in this->textAreaRTb->Lines) {
 				 writer->WriteLine(lineText);
 				 // 刷新缓冲
 				 writer->Flush();
@@ -572,7 +570,7 @@ private: System::Void fileSaveAsMenu_Click(System::Object^  sender, System::Even
 			 // 文件不论存不存在
 
 			 // 别忘了，modify = false
-			 this->textAreaTb->Modified = false;
+			 this->textAreaRTb->Modified = false;
 
 			 SaveFileDialog^ saveFileDialog = gcnew SaveFileDialog();
 			 // 
@@ -589,17 +587,17 @@ private: System::Void fileSaveAsMenu_Click(System::Object^  sender, System::Even
 			 FileStream^ stream = fileInfo->Open(FileMode::OpenOrCreate, FileAccess::Write);
 			 StreamWriter^ writer = gcnew StreamWriter(stream, Encoding::Default);
 
-			 for each (String^ lineText in this->textAreaTb->Lines)
+			 for each (String^ lineText in this->textAreaRTb->Lines)
 				 writer->WriteLine(lineText);
 
 			 writer->Close();
 			 stream->Close();
 
 			 // 设置当前文件名
-			 this->textAreaTb->Tag = saveFileDialog->FileName;
+			 this->textAreaRTb->Tag = saveFileDialog->FileName;
 		 }
 private: System::Void exitMenu_Click(System::Object^  sender, System::EventArgs^  e) {
-			 if (this->textAreaTb->Modified)
+			 if (this->textAreaRTb->Modified)
 			 {
 				 if (MessageBox::Show(L"内容变动，是否保存？", L"退出提示", MessageBoxButtons::OKCancel) == 
 					 System::Windows::Forms::DialogResult::OK) {
@@ -611,26 +609,26 @@ private: System::Void exitMenu_Click(System::Object^  sender, System::EventArgs^
 			 Application::Exit();
 		 }
 private: System::Void textCancelMenu_Click(System::Object^  sender, System::EventArgs^  e) {
-			 this->textAreaTb->Undo();
+			 this->textAreaRTb->Undo();
 		 }
 private: System::Void textCutMenu_Click(System::Object^  sender, System::EventArgs^  e) {
-			 this->textAreaTb->Cut();
+			 this->textAreaRTb->Cut();
 		 }
 private: System::Void textCopyMenu_Click(System::Object^  sender, System::EventArgs^  e) {
-			 this->textAreaTb->Copy();
+			 this->textAreaRTb->Copy();
 		 }
 private: System::Void textPaste_Click(System::Object^  sender, System::EventArgs^  e) {
-			 this->textAreaTb->Paste();
+			 this->textAreaRTb->Paste();
 		 }
 private: System::Void textSelectAllMenu_Click(System::Object^  sender, System::EventArgs^  e) {
-			 this->textAreaTb->SelectAll();
+			 this->textAreaRTb->SelectAll();
 		 }
 private: System::Void textDateMenu_Click(System::Object^  sender, System::EventArgs^  e) {
-			 this->textAreaTb->Text += (DateTime::Now.ToLocalTime() + L"\r\n");
+			 this->textAreaRTb->Text += (DateTime::Now.ToLocalTime() + L"\r\n");
 		 }
 private: System::Void textDeleteMenu_Click(System::Object^  sender, System::EventArgs^  e) {
 			 // @TODO only delete selectedText
-			 this->textAreaTb->SelectedText = L"";
+			 this->textAreaRTb->SelectedText = L"";
 		 }
 private: System::Void textSearchMenu_Click(System::Object^  sender, System::EventArgs^  e) {
 			 SearchBoxDialog^ searchBoxDialog = gcnew SearchBoxDialog();
@@ -644,16 +642,16 @@ private: System::Void textSearchMenu_Click(System::Object^  sender, System::Even
 			 searchBoxDialog->Owner = this;
 
 			 // 传值（从主窗口传到 SearchBox 窗口
-			 searchBoxDialog->SetParentTextBox(this->textAreaTb);
+			 searchBoxDialog->SetParentRichTextBox(this->textAreaRTb);
 
 			 searchBoxDialog->Show();
 		 }
 private: System::Void textFontMenu_Click(System::Object^  sender, System::EventArgs^  e) {
 			 FontDialog^ fontDialog = gcnew FontDialog();
-			 fontDialog->Font = this->textAreaTb->Font;
+			 fontDialog->Font = this->textAreaRTb->Font;
 			 if (fontDialog->ShowDialog() != System::Windows::Forms::DialogResult::OK)
 				 return ;
-			 this->textAreaTb->Font = fontDialog->Font;
+			 this->textAreaRTb->Font = fontDialog->Font;
 		 }
 private: System::Void statusBarMenu_Click(System::Object^  sender, System::EventArgs^  e) {
 			 this->statusBarMenu->Checked = ! this->statusBarMenu->Checked;
@@ -673,25 +671,25 @@ private: System::Void statusBarMenu_Click(System::Object^  sender, System::Event
 			 this->ECEStatusBarTimer->Enabled = true;
 		 }
 private: System::Void ECEStatusBarTimer_Tick(System::Object^  sender, System::EventArgs^  e) {
-			 int totalLine = textAreaTb->GetLineFromCharIndex(
-					textAreaTb->Text->Length); // 总行数
-			 int index = textAreaTb->GetFirstCharIndexOfCurrentLine(); // 每行第一个字符索引
-			 int line = textAreaTb->GetLineFromCharIndex(index) + 1; // 行号
-			 int column = textAreaTb->SelectionStart - index + 1; // 列号
+			 int totalLine = textAreaRTb->GetLineFromCharIndex(
+					textAreaRTb->Text->Length); // 总行数
+			 int index = textAreaRTb->GetFirstCharIndexOfCurrentLine(); // 每行第一个字符索引
+			 int line = textAreaRTb->GetLineFromCharIndex(index) + 1; // 行号
+			 int column = textAreaRTb->SelectionStart - index + 1; // 列号
 
-			 this->textLength->Text = L"长度 : " + this->textAreaTb->Text->Length.ToString();
+			 this->textLength->Text = L"长度 : " + this->textAreaRTb->Text->Length.ToString();
 			 this->textLines->Text = L"行数 : " + totalLine.ToString();
 			 this->textRow->Text = L"行 : " + line.ToString();
 			 this->textColumn->Text = L"列 : " + column.ToString();
 
 			 // 编码 @TODO
-			 // this->textCharset->Text = L"编码 : " + this->textAreaTb->
+			 // this->textCharset->Text = L"编码 : " + this->textAreaRTb->
 
 			 // 自动换行@TODO
 			 if (autoNewLineMenu->Enabled) {
-				 // MessageBox::Show(this->textAreaTb->Width.ToString());
-				 if (column >= textAreaTb->Width)
-					 textAreaTb->Text += "\r\n";
+				 // MessageBox::Show(this->textAreaRTb->Width.ToString());
+				 if (column >= textAreaRTb->Width)
+					 textAreaRTb->Text += "\r\n";
 			 }
 
 			 
@@ -705,8 +703,8 @@ private: System::Void textReplaceMenu_Click(System::Object^  sender, System::Eve
 			 // 悬浮于主窗体之上
 			 replaceBoxDialog->Owner = this;
 
-			 // 设置 textAreaTb
-			 replaceBoxDialog->SetParentTextBoxR(this->textAreaTb);
+			 // 设置 textAreaRTb
+			 replaceBoxDialog->SetParentRichTextBoxR(this->textAreaRTb);
 
 			 // 显示
 			 replaceBoxDialog->Show();

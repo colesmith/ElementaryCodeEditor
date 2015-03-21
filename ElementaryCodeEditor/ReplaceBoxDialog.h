@@ -188,7 +188,7 @@ namespace ElementaryCodeEditor {
 		}
 #pragma endregion
 
-	private: TextBox^ parentTextAreaTbR;
+	private: RichTextBox^ parentRichTextAreaTbR;
 	private: int position;
 
 	private:
@@ -197,8 +197,8 @@ namespace ElementaryCodeEditor {
 		}
 
 	public:
-		void SetParentTextBoxR(TextBox^ tb) {
-			this->parentTextAreaTbR = tb;
+		void SetParentRichTextBoxR(RichTextBox^ tb) {
+			this->parentRichTextAreaTbR = tb;
 		}
 
 	private:
@@ -218,15 +218,15 @@ namespace ElementaryCodeEditor {
 			}*/
 
 			// 2. 检查文本是否为空
-			if (this->parentTextAreaTbR->Text == String::Empty)
+			if (this->parentRichTextAreaTbR->Text == String::Empty)
 				return -2;
 
 			// 3. 检查文本是否包含关键字
-			if (! this->parentTextAreaTbR->Text->Contains(this->replaceBoxSearchWordTb->Text))
+			if (! this->parentRichTextAreaTbR->Text->Contains(this->replaceBoxSearchWordTb->Text))
 				return -2;
 
 			//
-			String^ fullText = this->parentTextAreaTbR->Text;
+			String^ fullText = this->parentRichTextAreaTbR->Text;
 			String^ keyword = this->replaceBoxSearchWordTb->Text;
 
 			// 4. 查找第一个关键字位置
@@ -245,13 +245,13 @@ namespace ElementaryCodeEditor {
 				 }
 
 				 // 5. 选中文本
-				 this->parentTextAreaTbR->Select(this->position, this->replaceBoxSearchWordTb->Text->Length);
+				 this->parentRichTextAreaTbR->Select(this->position, this->replaceBoxSearchWordTb->Text->Length);
 
 				 // 6. 记录下一个查找的起始位置
 				 this->position += this->replaceBoxSearchWordTb->Text->Length;
 
 				 // 7. 聚焦在文本框中
-				 this->parentTextAreaTbR->Focus();
+				 this->parentRichTextAreaTbR->Focus();
 			 }
 private: System::Void replaceBoxReplaceBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 			 // 封装好了
@@ -263,24 +263,25 @@ private: System::Void replaceBoxReplaceBtn_Click(System::Object^  sender, System
 			 }
 
 			 // 5. 先选中文本， 然后替换文本
-			 this->parentTextAreaTbR->Select(this->position, this->replaceBoxSearchWordTb->Text->Length);
-			 this->parentTextAreaTbR->SelectedText = this->replaceBoxReplaceWordTb->Text;
+			 this->parentRichTextAreaTbR->Select(this->position, this->replaceBoxSearchWordTb->Text->Length);
+			 this->parentRichTextAreaTbR->SelectedText = this->replaceBoxReplaceWordTb->Text;
 			 /*
-			 this->parentTextAreaTbR->Text = this->parentTextAreaTbR->Text->Replace(
+			 this->parentRichTextAreaTbR->Text = this->parentRichTextAreaTbR->Text->Replace(
 					this->replaceBoxSearchWordTb->Text, 
 					this->replaceBoxReplaceWordTb->Text, 1);*/
-			 this->parentTextAreaTbR->Select(this->position, this->replaceBoxReplaceWordTb->Text->Length);
+			 this->parentRichTextAreaTbR->Select(this->position, this->replaceBoxReplaceWordTb->Text->Length);
+			 // this->parentRichTextAreaTbR->SelectionColor = Color::Red;
 
 			 // 6. 记录下一个查找的起始位置
 			 this->position += this->replaceBoxSearchWordTb->Text->Length;
 
 			 // 7. 聚焦在文本框中
-			 this->parentTextAreaTbR->Focus();
+			 this->parentRichTextAreaTbR->Focus();
 		 }
 private: System::Void replaceBoxReplaceAllBtn_Click(System::Object^  sender, System::EventArgs^  e) {
 			 this->indexKeyword(3);
 
-			 this->parentTextAreaTbR->Text = this->parentTextAreaTbR->Text->Replace(
+			 this->parentRichTextAreaTbR->Text = this->parentRichTextAreaTbR->Text->Replace(
 				 this->replaceBoxSearchWordTb->Text, 
 				 this->replaceBoxReplaceWordTb->Text);
 		 }
